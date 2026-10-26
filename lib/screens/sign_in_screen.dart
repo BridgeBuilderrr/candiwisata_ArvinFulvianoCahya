@@ -36,6 +36,25 @@ class SignInScreen extends StatelessWidget {
                 ),
 
                 // TODO: 6. TextFormField kata sandi
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Kata Sandi',
+                    errorText: _errorText.isNotEmpty ? _errorText : null,
+                    border: const OutlineInputBorder(),
+                    suffix: IconButton(
+                      onPressed: (){
+                        _obscurePassword = !_obscurePassword;
+                      }, 
+                      icon: Icon(
+                        _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                      ),
+                    ),
+                  ),
+                  obscureText: _obscurePassword,
+                ),
+
                 // TODO: 7. ElevatedButton Sign In
                 // TODO: 8. TextButton Sign Up
               ],
