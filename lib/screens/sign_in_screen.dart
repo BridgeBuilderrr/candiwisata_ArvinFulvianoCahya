@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   SignInScreen({super.key});
 
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
   // TODO 1. declare variables
   final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
- 
+
   String _errorText = '';
+
   bool _isSignedIn = false;
+
   bool _obscurePassword = true;
 
   @override
@@ -45,7 +53,9 @@ class SignInScreen extends StatelessWidget {
                     border: const OutlineInputBorder(),
                     suffix: IconButton(
                       onPressed: (){
-                        _obscurePassword = !_obscurePassword;
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });                        
                       }, 
                       icon: Icon(
                         _obscurePassword ? Icons.visibility_off : Icons.visibility,
@@ -56,7 +66,19 @@ class SignInScreen extends StatelessWidget {
                 ),
 
                 // TODO: 7. ElevatedButton Sign In
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Sign In'),
+                ),
+
                 // TODO: 8. TextButton Sign Up
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('Belum punya akun? Daftar di sini.'),
+                ),
+
               ],
             ),
           ),
