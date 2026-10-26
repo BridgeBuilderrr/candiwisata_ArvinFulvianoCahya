@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:joy/data/candi_data.dart';
 import 'package:joy/screens/detail_screen.dart';
 import 'package:joy/screens/profile_screen.dart';
+import 'package:joy/screens/sign_in_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const CandiDebugHome(),
-      home: ProfileScreen(),
+      // home: ProfileScreen(),
+      home: SignInScreen(),
     );
   }
 }
