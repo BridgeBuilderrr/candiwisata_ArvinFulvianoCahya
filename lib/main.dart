@@ -4,7 +4,22 @@ import 'package:joy/screens/detail_screen.dart';
 import 'package:joy/screens/profile_screen.dart';
 import 'package:joy/screens/sign_in_screen.dart';
 
-void main() => runApp(const MyApp());
+import 'package:provider/provider.dart';
+import 'providers/favorite_provider.dart';
+import 'providers/auth_provider.dart';
+
+
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

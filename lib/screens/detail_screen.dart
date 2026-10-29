@@ -32,7 +32,25 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final candi = widget.candi;
+    final candi = widget.candi;  
+
+    //// di dalam build() DetailScreen
+    // final isFav = context
+    //     .watch<FavoriteProvider>()
+    //     .isFavorite(candi.name);
+    
+    // IconButton(
+    //   onPressed: () {
+    //     context
+    //         .read<FavoriteProvider>()
+    //         .toggle(candi.name);
+    //   },
+    //   icon: Icon(
+    //     isFav ? Icons.favorite : Icons.favorite_border,
+    //     color: isFav ? Colors.red : null,
+    //   ),
+    // ),
+
 
     return Scaffold(
       backgroundColor: Colors.white,

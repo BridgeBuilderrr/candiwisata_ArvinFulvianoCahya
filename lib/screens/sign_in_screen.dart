@@ -57,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           _obscurePassword = !_obscurePassword;
                         });                        
                       }, 
-                      icon: Icon(
+                      icon: Icon( 
                         _obscurePassword ? Icons.visibility_off : Icons.visibility,
                       ),
                     ),
