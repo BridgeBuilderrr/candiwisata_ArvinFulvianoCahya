@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:joy/models/candi.dart';
 
+import 'package:provider/provider.dart';
+import 'package:joy/providers/favorite_provider.dart';
+
 class DetailScreen extends StatefulWidget {
   const DetailScreen({
     super.key,
@@ -35,21 +38,21 @@ class _DetailScreenState extends State<DetailScreen> {
     final candi = widget.candi;  
 
     //// di dalam build() DetailScreen
-    // final isFav = context
-    //     .watch<FavoriteProvider>()
-    //     .isFavorite(candi.name);
+    final isFav = context
+        .watch<FavoriteProvider>()
+        .isFavorite(candi.name);
     
-    // IconButton(
-    //   onPressed: () {
-    //     context
-    //         .read<FavoriteProvider>()
-    //         .toggle(candi.name);
-    //   },
-    //   icon: Icon(
-    //     isFav ? Icons.favorite : Icons.favorite_border,
-    //     color: isFav ? Colors.red : null,
-    //   ),
-    // ),
+    IconButton(
+      onPressed: () {
+        context
+            .read<FavoriteProvider>()
+            .toggle(candi.name);
+      },
+      icon: Icon(
+        isFav ? Icons.favorite : Icons.favorite_border,
+        color: isFav ? Colors.red : null,
+      ),
+    );
 
 
     return Scaffold(
