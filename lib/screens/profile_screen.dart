@@ -1,39 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:joy/providers/auth_provider.dart';
+import 'package:joy/providers/favorite_provider.dart';
+import 'package:joy/screens/sign_in_screen.dart';
+import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const new({super.key});
+class ProfileInfoItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
 
-  @override
-  State<ProfileScreen> createState() =>  _ProfileScreenState();
-}
+  const ProfileInfoItem({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
-class  _ProfileScreenState extends State<ProfileScreen> {
-  // TODO: 1. Deklarasikan variabel
-  bool isSignedIn = false;
-  String fullName = '';
-  String userName = '';
-  int favoriteCandiCount = 0;
-
-  // TODO: 5. Implementasi fungsi signIn
-  void signIn() {
-    setState(() {
-      isSignedIn = true;
-      userName = 'Artcore enjoyer';
-      fullName = '冰淇淋';
-      favoriteCandiCount = 3;
-    });
-  }
-  // TODO: 6. Implementasi fungsi signOut
-  void signOut() {
-    setState(() {
-      isSignedIn = false;
-      userName = '';
-      fullName = '';
-      favoriteCandiCount = 0;
-    });
-  }
   @override
   Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 130,
+            child: Row(
+              children: [
+                Icon(icon, color: Colors.deepPurple),
+                const SizedBox(width: 8),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final favoriteCount = context.watch<FavoriteProvider>().count;
+    final auth = context.watch<AuthProvider>();
+
     return Scaffold(
       body: Stack(
         children: [
@@ -44,111 +68,77 @@ class  _ProfileScreenState extends State<ProfileScreen> {
           ),
           Column(
             children: [
-              // TODO: 2. Buat ProfileHeader (foto profil)
               Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 200 - 50
-                  ),
+                  padding: EdgeInsets.only(top: 200 - 50),
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
                       Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: Colors.deepPurple, 
-                            width: 2
-                            ),
+                            color: Colors.deepPurple,
+                            width: 2,
+                          ),
                           shape: BoxShape.circle,
                         ),
                         child: const CircleAvatar(
                           radius: 50,
-                          backgroundImage:
-                              AssetImage('images/placeholder_image.png'),
+                          backgroundImage: AssetImage('images/placeholder_image.png'),
                         ),
                       ),
-                      if (isSignedIn)
+                      if (auth.isSignedIn)
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
                             Icons.camera_alt,
-                            color: Colors.deepPurple[50]
-                            ),
+                            color: Colors.deepPurple[50],
                           ),
+                        ),
                     ],
                   ),
                 ),
               ),
-              // TODO: 3. Buat ProfileInfo (info pengguna)
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: const Row(children: [
-                      Icon(Icons.favorite, color: Colors.red),
-                      SizedBox(width: 8),
-                      Text('Favorit', style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                    ]),
-                  ),
-                  Expanded(
-                    child: Text(': $favoriteCandiCount',
-                      style: const TextStyle(fontSize: 18)),
-                  ),
-                ]
+              const SizedBox(height: 20),
+              ProfileInfoItem(
+                icon: Icons.favorite,
+                label: 'Favorit',
+                value: favoriteCount > 0 ? '$favoriteCount' : '0',
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: const Row(children: [
-                      Icon(Icons.person, color: Colors.blue),
-                      SizedBox(width: 8),
-                      Text('user', style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                    ]),
-                  ),
-                  Expanded(
-                    child: Text(': $userName',
-                      style: const TextStyle(fontSize: 18)),
-                  ),
-                ]
+              ProfileInfoItem(
+                icon: Icons.person,
+                label: 'User',
+                value: auth.isSignedIn ? auth.username : 'Belum login',
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 3,
-                    child: const Row(children: [
-                      Icon(Icons.lock, color: Colors.amber),
-                      SizedBox(width: 8),
-                      Text('kunci', style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-                    ]),
-                  ),
-                  Expanded(
-                    child: Text(': $isSignedIn',
-                      style: const TextStyle(fontSize: 18)),
-                  ),
-                ]
+              ProfileInfoItem(
+                icon: Icons.lock,
+                label: 'Status',
+                value: auth.isSignedIn ? 'Signed In' : 'Signed Out',
               ),
-              // TODO: 4. Buat ProfileActions (tombol sign in/out)
-              const SizedBox(height: 4),
-                Divider(color: Colors.deepPurple[100]),
-                const SizedBox(height: 20),
-                isSignedIn
-                    ? TextButton(
-                        onPressed: signOut,
-                        child: const Text('Sign Out'),
-                      )
-                    : TextButton(
-                        onPressed: signIn,
-                        child: const Text('Sign In'),
-                      ),
+              const SizedBox(height: 20),
+              const Divider(color: Colors.deepPurple),
+              const SizedBox(height: 20),
+              auth.isSignedIn
+                  ? TextButton(
+                      onPressed: () => context.read<AuthProvider>().signOut(),
+                      child: const Text('Sign Out'),
+                    )
+                  : TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SignInScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text('Sign In'),
+                    ),
             ],
           ),
         ],
-      )
+      ),
     );
   }
 }
