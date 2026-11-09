@@ -24,10 +24,16 @@ class _SearchScreenState extends State<SearchScreen> {
       // TODO: 3. Create a body in the form of a Column
       body: Column(
         children: [
-          // TODO: 4. Create a search TextField as a child of Column
-          TextField(
-            
-          ),
+          Padding(
+            padding: EdgeInsets.all(16),
+            // TODO: 4. Create a search TextField as a child of Column
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                // REMEMBER FUTURE PROBLEM
+              ),
+            ),
+          ),          
           // TODO: 5. Create a search results ListView as a child of Column
           ListView.builder(
             itemBuilder: (context, index){
