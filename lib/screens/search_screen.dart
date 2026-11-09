@@ -17,13 +17,26 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build (BuildContext context) {
     return Scaffold(
-    // TODO: 2. Create an appbar with the title Candi Search
-
-    // TODO: 3. Create a body in the form of a Column
-
-    // TODO: 4. Create a search TextField as a child of Column
-
-    // TODO: 5. Create a search results ListView as a child of Column
+      // TODO: 2. Create an appbar with the title Candi Search
+      appBar: AppBar(
+        title: Text('Search Candi'),
+      ),
+      // TODO: 3. Create a body in the form of a Column
+      body: Column(
+        children: [
+          // TODO: 4. Create a search TextField as a child of Column
+          TextField(
+            
+          ),
+          // TODO: 5. Create a search results ListView as a child of Column
+          ListView.builder(
+            itemBuilder: (context, index){
+              final candi = _filteredCandis[index];
+              return Card();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
