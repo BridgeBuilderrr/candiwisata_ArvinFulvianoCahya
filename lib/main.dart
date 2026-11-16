@@ -5,6 +5,8 @@ import 'package:joy/providers/favorite_provider.dart';
 import 'package:joy/screens/detail_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/home_screen.dart';
+
 void main() {
   runApp(
     MultiProvider(
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: DetailScreen(candi: candiList[0]),
+      // home: DetailScreen(candi: candiList[0]),
+      home: const HomeScreen(),
     );
   }
 }
